@@ -1,0 +1,77 @@
+.welcome {
+  height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+
+  h1 {
+    text-align: left;
+    padding-top: 30px;
+    padding-left: 30px;
+    font-family: 'Mystery Quest', sans-serif;
+    font-size: 5rem;
+    text-shadow: 3px 3px 8px hotpink, 0px 0px 8px blue;
+  }
+
+  h2 {
+    padding-left: 30px;
+    margin-top: 0;
+    font-size: 2rem;
+    width: 400px;
+    text-align: left;
+    text-shadow: 3px 3px 8px hotpink;
+
+    span {
+      text-shadow: 3px 3px 8px purple;
+      font-size: 1.5em;
+      font-family: 'Mystery Quest', sans-serif;
+    }
+  }
+
+  button {
+    width: 400px;
+    margin: 0 20px;
+    margin-top: 20px;
+    height: 150px;
+    border-radius: 25px;
+    border-width: 0;
+    background-color: rgb(55, 103, 192);
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px bisque;
+    box-shadow: 3px 3px 8px bisque;
+    font-family: 'Oswald', sans-serif;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+  }
+
+  button:hover {
+    width: 500px;
+    span {
+      padding-right: 25px;
+    }
+
+    span:after {
+      opacity: 1;
+      right: 0;
+    }
+  }
+}

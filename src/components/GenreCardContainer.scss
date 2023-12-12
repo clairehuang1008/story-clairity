@@ -1,0 +1,81 @@
+.genreCardContainer {
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 50px;
+}
+
+.genre-card {
+  height: 300px;
+  width: 200px;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px bisque;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.genre-card:hover {
+  letter-spacing: 5px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0s;
+  height: 360px;
+  width: 240px;
+}
+
+.fantasy {
+  background-image: url('../assets/genreImages/fantasy.png');
+  background-size: cover;
+  font-family: 'MedievalSharp', cursive;
+  color: rgb(255, 255, 16);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-shadow: 5px 5px 5px rgb(22, 22, 113);
+}
+
+.mystery {
+  background-image: url('../assets/genreImages/mystery.png');
+  background-size: cover;
+  font-family: 'Alfa Slab One', serif;
+  color: bisque;
+  text-shadow: 5px 5px 2px brown;
+}
+
+.horror {
+  background-image: url('../assets/genreImages/horror.png');
+  background-size: cover;
+  font-family: 'Nosifer', sans-serif;
+  color: rgb(164, 15, 15);
+  font-size: 1.8rem;
+  text-shadow: 5px 5px 2px gray;
+}
+
+.romance {
+  background-image: url('../assets/genreImages/romance.png');
+  background-size: cover;
+  font-family: 'Lobster', cursive;
+  font-size: 3rem;
+  color: white;
+  text-shadow: 2px 2px 2px red;
+}
+
+.sciFi {
+  background-image: url('../assets/genreImages/science.png');
+  background-size: cover;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 5px 3px rgb(10, 82, 176);
+}
+
+.comedy {
+  background-image: url('../assets/genreImages/comedy.png');
+  background-size: cover;
+  font-family: 'Bangers', sans-serif;
+  font-weight: 900;
+  color: orange;
+  font-size: 3rem;
+  text-shadow: 5px 3px rgb(36, 99, 182);
+}

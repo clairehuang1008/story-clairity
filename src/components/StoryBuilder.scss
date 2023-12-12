@@ -1,0 +1,299 @@
+.storyBuilder {
+  color: white;
+  padding-bottom: 200px;
+  .header {
+    font-size: 2rem;
+    h2 {
+      margin: 0;
+      padding: 180px 50px;
+      text-shadow: 0 0 8px #ff0000, 0 0 8px #0000ff;
+      padding-bottom: 100px;
+
+      .fantasy {
+        font-family: 'MedievalSharp', cursive;
+        color: rgb(255, 255, 16);
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-shadow: 5px 5px 5px rgb(22, 22, 113);
+      }
+
+      .mystery {
+        font-family: 'Alfa Slab One', serif;
+        color: bisque;
+        text-shadow: 5px 5px 2px brown;
+      }
+
+      .horror {
+        font-family: 'Nosifer', sans-serif;
+        color: rgb(164, 15, 15);
+        font-size: 1.8rem;
+        text-shadow: 5px 5px 2px gray;
+      }
+
+      .romance {
+        font-family: 'Lobster', cursive;
+        font-size: 3rem;
+        color: white;
+        text-shadow: 2px 2px 2px red;
+      }
+
+      .sciFi {
+        font-family: 'Orbitron', sans-serif;
+        text-shadow: 5px 3px rgb(10, 82, 176);
+      }
+
+      .comedy {
+        font-family: 'Bangers', sans-serif;
+        font-weight: 900;
+        color: orange;
+        font-size: 3rem;
+        text-shadow: 5px 3px rgb(36, 99, 182);
+      }
+
+      span {
+        border-radius: 10px;
+        padding: 50px 20px;
+        box-shadow: 0 0 10px white, 0 0 10px blue, 0 0 10px red;
+      }
+    }
+  }
+
+  .plotCardsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+
+    .plotCard {
+      background-color: #ffa6c1;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      border-radius: 25px;
+
+      .chosen {
+        border: 10px solid rgb(48, 65, 129);
+        box-shadow: 5px 5px 5px white;
+      }
+
+      h3 {
+        width: 100%;
+        margin: 0;
+        padding: 10px 0;
+        font-weight: 900;
+        text-shadow: 2px 2px white, -2px -2px white, -2px 2px white,
+          2px -2px white;
+        color: #333333;
+        font-size: 1.8rem;
+      }
+    }
+
+    .optionCard {
+      width: 50%;
+      font-weight: 800;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 15px;
+    }
+
+    .optionCard:hover {
+      letter-spacing: 1px;
+      -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+      -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+      box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+      transition: all 0.4s ease 0s;
+      width: 60%;
+      text-shadow: 3px 3px 5px white, -3px 3px 5px lightblue;
+    }
+
+    .aiPlot {
+      background-color: #ffd6de;
+      color: #ff6996;
+
+      .defaultAiText {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .aiPlotText {
+        width: 90%;
+        text-align: left;
+        padding: 10px 20px;
+        font-weight: 400;
+        font-family: 'Bitter';
+        color: #a4425f;
+        line-height: 1.5;
+      }
+    }
+
+    .userPlot {
+      background-color: #a4425f;
+      color: #ffd6de;
+      margin-bottom: 10px;
+
+      p {
+        font-weight: 400;
+        font-family: 'Bitter';
+        line-height: 1.5;
+        text-align: left;
+        margin: 10px;
+        padding: 10px 20px;
+        text-align: center;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      textarea {
+        background-color: #a4425f;
+        width: 400px;
+        height: 150px;
+        border: none;
+        resize: none;
+        color: #ffd6de;
+        margin: 10px 10px;
+        line-height: 1.5;
+      }
+
+      textarea::placeholder {
+        color: #ffa6c1;
+        text-align: center;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+
+        button {
+          border: 0;
+          cursor: pointer;
+          padding: 10px 30px;
+          font-size: 1rem;
+          font-weight: 900;
+          margin-bottom: 10px;
+          border-radius: 10px;
+        }
+
+        button:hover {
+          box-shadow: 2px 2px pink;
+        }
+
+        .edit {
+          background-color: #764cad;
+          color: #ffd6de;
+        }
+
+        .edit:hover {
+          background-color: #472c6c;
+        }
+
+        .save {
+          background-color: #5495a3;
+          color: bisque;
+        }
+
+        .save:hover {
+          background-color: #218838; /* Slightly darker for hover state */
+        }
+
+        /* Style for the disabled state of the save button */
+        .save:disabled {
+          background-color: #c8e6c9; /* Lighter green */
+          color: #c6c6c6; /* A neutral color */
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .userPlot:hover {
+      text-shadow: 3px 3px 5px red, -3px 3px 5px blue;
+    }
+  }
+  .next {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      font-size: 2rem;
+      font-weight: 900;
+      text-shadow: 2px 2px 5px #a4425f, -2px 2px 5px white;
+      margin: 10px;
+    }
+
+    .nextCardOptions {
+      width: 100%;
+      display: flex;
+
+      button {
+        flex-basis: 100%;
+        border: 0;
+        text-shadow: 1px 1px white, -1px -1px white, -1px 1px white,
+          1px -1px white;
+        font-size: 1rem;
+        padding: 10px 0;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #33333323;
+        letter-spacing: 2px;
+        font-size: 1.5rem;
+        text-shadow: 1px 1px 5px white, -1px -1px 5px white, -1px 1px 5px white,
+          1px -1px 5px white;
+      }
+    }
+  }
+}
+
+.plotCard.chosenContent {
+  background-color: #672036 !important;
+  color: #ffd6de;
+
+  p {
+    font-weight: 500;
+    font-family: 'Bitter';
+    line-height: 1.5;
+    text-align: left;
+    text-shadow: 2px 2px rgb(31, 18, 69);
+    margin: 10px;
+    padding: 10px 40px;
+    text-align: left;
+    gap: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}
+
+.development {
+  background-color: #adc489;
+  font-family: 'Montserrat Subrayada';
+}
+
+.twist {
+  background-color: #f9be96;
+  font-family: 'Montserrat Subrayada';
+}
+
+.ending {
+  background-color: #7f85f8;
+  font-family: 'Montserrat Subrayada';
+}
+
+.beginning {
+  background-color: #a8e6cf;
+  font-family: 'Montserrat Subrayada';
+}
+
+.plotCard.currentCard {
+  box-shadow: 2px 2px 8px white, -2px -2px 8px white, -2px 2px 8px white,
+    2px -2px 8px white;
+}

@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { useState } from 'react';
+import Welcome from './components/Welcome.jsx';
+import GenreCardContainer from './components/GenreCardContainer.jsx';
+import { useSelector } from 'react-redux';
+import StoryBuilder from './components/StoryBuilder.jsx';
 
 function App() {
+  const [start, setStart] = useState(false);
+  const genreKey = useSelector((state) => state.story.genreKey);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      {!start && <Welcome onClick={() => setStart(true)} />}
+      {start && genreKey === '' && <GenreCardContainer />}
+      {genreKey !== '' && <StoryBuilder />}
     </div>
   );
 }
