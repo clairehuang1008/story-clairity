@@ -148,7 +148,7 @@
 }
 
 .fantasy {
-  background-image: url('../assets/genreImages/fantasy.png');
+  background-image: url('../../public/assets/genreImages/fantasy.png');
   background-size: cover;
   font-family: 'MedievalSharp', cursive;
   color: rgb(255, 255, 16);
@@ -158,7 +158,7 @@
 }
 
 .mystery {
-  background-image: url('../assets/genreImages/mystery.png');
+  background-image: url('../../public/assets/genreImages/mystery.png');
   background-size: cover;
   font-family: 'Alfa Slab One', serif;
   color: bisque;
@@ -166,7 +166,7 @@
 }
 
 .horror {
-  background-image: url('../assets/genreImages/horror.png');
+  background-image: url('../../public/assets/genreImages/horror.png');
   background-size: cover;
   font-family: 'Nosifer', sans-serif;
   color: rgb(164, 15, 15);
@@ -175,7 +175,7 @@
 }
 
 .romance {
-  background-image: url('../assets/genreImages/romance.png');
+  background-image: url('../../public/assets/genreImages/romance.png');
   background-size: cover;
   font-family: 'Lobster', cursive;
   font-size: 3rem;
@@ -184,14 +184,14 @@
 }
 
 .sciFi {
-  background-image: url('../assets/genreImages/science.png');
+  background-image: url('../../public/assets/genreImages/science.png');
   background-size: cover;
   font-family: 'Orbitron', sans-serif;
   text-shadow: 5px 3px rgb(10, 82, 176);
 }
 
 .comedy {
-  background-image: url('../assets/genreImages/comedy.png');
+  background-image: url('../../public/assets/genreImages/comedy.png');
   background-size: cover;
   font-family: 'Bangers', sans-serif;
   font-weight: 900;
