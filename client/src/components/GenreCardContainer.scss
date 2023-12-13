@@ -1,0 +1,201 @@
+.genreCardContainer {
+  height: 40vh;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 50px;
+  padding-bottom: 300px;
+}
+
+.topContainerOfGenre {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  .container {
+    height: 35vh;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    margin-left: 10%;
+  }
+}
+
+.trapdoor {
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -25px;
+  width: 200px;
+  height: 50px;
+  box-shadow: inset -7px 0px 12px -8px rgba(0, 0, 0, 0.3),
+    inset 7px 0px 12px -8px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-transition: background 400ms ease-in-out;
+  -moz-transition: background 400ms ease-in-out;
+  -ms-transition: background 400ms ease-in-out;
+  -o-transition: background 400ms ease-in-out;
+  transition: background 400ms ease-in-out;
+
+  &:hover {
+    background: #a4425f;
+
+    .door {
+      box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.4);
+      -webkit-transform: scale(1.08);
+      -moz-transform: scale(1.08);
+      -ms-transform: scale(1.08);
+      -o-transform: scale(1.08);
+      transform: scale(1.08);
+    }
+
+    .top {
+      top: -50%;
+    }
+
+    .bottom {
+      top: 100%;
+    }
+  }
+
+  .resetButton {
+    margin-left: -70px;
+    position: absolute !important;
+    font-size: 1rem !important;
+    margin-top: -14px;
+    left: 50%;
+    top: 50%;
+    color: white;
+    text-shadow: 0 0 5px lightpink;
+  }
+}
+
+.top {
+  top: 0%;
+  left: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  &:before {
+    top: 5px;
+  }
+}
+
+.bottom {
+  top: 50%;
+  left: 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  &:before {
+    top: -20px;
+  }
+}
+
+.door {
+  -webkit-transition: top 400ms, box-shadow 200ms, -webkit-transform 300ms;
+  -moz-transition: top 400ms, box-shadow 200ms, -moz-transform 300ms;
+  -ms-transition: top 400ms, box-shadow 200ms, -ms-transform 300ms;
+  -o-transition: top 400ms, box-shadow 200ms, -o-transform 300ms;
+  transition: top 400ms, box-shadow 200ms, transform 300ms;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  -ms-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+  background-color: rgb(243, 214, 218);
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  z-index: 2;
+  height: 50%;
+
+  &:before {
+    // font-family: 'tweet', sans-serif;
+    position: absolute;
+    margin-left: -20px;
+    font-size: 35px;
+    display: block;
+    content: url(../../public/house-door-fill.svg);
+    width: 0px;
+    height: 20px;
+    left: 52%;
+  }
+}
+
+.genre-card {
+  height: 300px;
+  width: 200px;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px bisque;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.genre-card:hover {
+  letter-spacing: 5px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0s;
+  height: 360px;
+  width: 240px;
+}
+
+.fantasy {
+  background-image: url('../assets/genreImages/fantasy.png');
+  background-size: cover;
+  font-family: 'MedievalSharp', cursive;
+  color: rgb(255, 255, 16);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-shadow: 5px 5px 5px rgb(22, 22, 113);
+}
+
+.mystery {
+  background-image: url('../assets/genreImages/mystery.png');
+  background-size: cover;
+  font-family: 'Alfa Slab One', serif;
+  color: bisque;
+  text-shadow: 5px 5px 2px brown;
+}
+
+.horror {
+  background-image: url('../assets/genreImages/horror.png');
+  background-size: cover;
+  font-family: 'Nosifer', sans-serif;
+  color: rgb(164, 15, 15);
+  font-size: 1.8rem;
+  text-shadow: 5px 5px 2px gray;
+}
+
+.romance {
+  background-image: url('../assets/genreImages/romance.png');
+  background-size: cover;
+  font-family: 'Lobster', cursive;
+  font-size: 3rem;
+  color: white;
+  text-shadow: 2px 2px 2px red;
+}
+
+.sciFi {
+  background-image: url('../assets/genreImages/science.png');
+  background-size: cover;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 5px 3px rgb(10, 82, 176);
+}
+
+.comedy {
+  background-image: url('../assets/genreImages/comedy.png');
+  background-size: cover;
+  font-family: 'Bangers', sans-serif;
+  font-weight: 900;
+  color: orange;
+  font-size: 3rem;
+  text-shadow: 5px 3px rgb(36, 99, 182);
+}
