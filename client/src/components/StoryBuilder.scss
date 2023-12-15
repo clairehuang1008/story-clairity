@@ -112,6 +112,7 @@
     .aiPlot {
       background-color: #ffd6de;
       color: #ff6996;
+      width: 100% !important;
 
       .defaultAiText {
         display: flex;
@@ -262,17 +263,28 @@
     padding: 30px;
     padding-top: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .audioContainer {
+      display: flex;
+      flex-direction: center;
+      width: 100%;
+    }
 
     button {
       cursor: pointer;
       position: relative;
       padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
       background: pink;
       font-size: 1.2rem;
       color: white;
-      text-shadow: 2px px 5px lightblue, -2px 2px 5px hotpink;
+      text-shadow: 2px 2px 5px lightblue, -2px 2px 5px hotpink;
       border-width: 0;
       border-top-right-radius: 10px;
       border-bottom-left-radius: 10px;
@@ -360,4 +372,70 @@
 .plotCard.currentCard {
   box-shadow: 2px 2px 8px white, -2px -2px 8px white, -2px 2px 8px white,
     2px -2px 8px white;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.width50 {
+  width: 50%;
+}
+
+#saveStoryForm {
+  background-color: #a4425f;
+  padding: 0px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+
+  #titleLabel {
+    background-image: url(../../public/arrow-down-right-square-fill.svg);
+    background-repeat: no-repeat;
+    color: #ffd6de;
+    padding-left: 30px;
+    display: flex;
+    height: 20px;
+    text-shadow: 0px 0px 5px white;
+  }
+  #title {
+    background-color: #a4425f;
+    font-size: 1rem;
+    border-width: 0;
+    width: 200px;
+    height: 30px;
+    border: none;
+    resize: none;
+    color: #ffd6de;
+    margin: 10px 10px;
+    line-height: 1.5;
+  }
+
+  #title::placeholder {
+    color: #ffa6c1;
+    font-size: 0.8rem;
+  }
+
+  #title:focus {
+    border: 0px solid white;
+  }
+
+  .save {
+    background-color: #f2c4d1;
+    box-shadow: 0px 0px 5px white;
+    color: #a4425f;
+    border-width: 0;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  .save:hover {
+    background-color: #218838; /* Slightly darker for hover state */
+    color: bisque;
+  }
 }

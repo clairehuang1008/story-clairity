@@ -1,17 +1,14 @@
 import { genres } from '../utils/genres.js';
 import GenreCard from './GenreCard.jsx';
 import './GenreCardContainer.scss';
+import ReturnHomeButton from './ReturnHomeButton.jsx';
 
-export default function GenreCardContainer({ restart }) {
+export default function GenreCardContainer() {
   const genreKeys = Object.keys(genres);
   return (
     <div className='topContainerOfGenre'>
       <div className='container'>
-        <div className='trapdoor' onClick={restart}>
-          <div className='top door'></div>
-          <div className='bottom door'></div>
-          <p className='resetButton'>Back to home page</p>
-        </div>
+        <ReturnHomeButton />
       </div>
       <div className='genreCardContainer'>
         {genreKeys.map((key) => (

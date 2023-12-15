@@ -1,0 +1,36 @@
+#savedStoriesContainer {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  color: white;
+  margin: 0 50px;
+  gap: 20px;
+  padding-bottom: 100px;
+  padding-right: 300px;
+
+  .container {
+    border-radius: 20px;
+
+    .savedStoryCard {
+      padding: 20px;
+      font-size: 1.2rem !important;
+      font-weight: 500;
+      font-family: 'Oswald', serif;
+      background-color: rgba(242, 198, 205, 0.495);
+      color: bisque;
+      text-shadow: 1px 1px #752f44, -1px 1px #752f44, 1px -1px #752f44;
+      height: 250px !important;
+      cursor: pointer;
+      border-radius: 20px;
+
+      .createdAt {
+        font-size: 1rem;
+        text-shadow: 1px 1px #752f44;
+        font-weight: 200;
+      }
+    }
+
+    .savedStoryCard:hover {
+      background-color: rgba(240, 248, 255, 0);
+    }
+  }
+}

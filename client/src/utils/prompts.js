@@ -29,3 +29,10 @@ export function generateImagePrompt(summarizedStory, genreKey) {
     'Please do not include any text elements.'
   );
 }
+
+export function generateTitlePrompt(pastPlots, genreKey) {
+  return (
+    `Please provide a concise title (less than 5 words) for the following ${genres[genreKey].name} story: ` +
+    pastPlots
+  );
+}

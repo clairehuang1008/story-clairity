@@ -1,26 +1,34 @@
 import './App.scss';
-import { useState } from 'react';
 import Welcome from './components/Welcome.jsx';
 import GenreCardContainer from './components/GenreCardContainer.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import StoryBuilder from './components/StoryBuilder.jsx';
-import { reset } from './utils/reducers/storySlice';
+import SavedStoriesContainer from './components/savedStories/SavedStoriesContainer';
+import React, { useEffect } from 'react';
+import { fetchSavedStories, goToPage } from './utils/reducers/pageSlice';
+import SavedStoryDetail from './components/savedStories/SavedStoryDetail';
 
 function App() {
-  const [start, setStart] = useState(false);
-  const genreKey = useSelector((state) => state.story.genreKey);
   const dispatch = useDispatch();
 
-  function restart() {
-    setStart(false);
-    dispatch(reset());
-  }
+  useEffect(() => {
+    dispatch(fetchSavedStories());
+  }, [dispatch]);
+
+  const { page, savedStories, chosenStory } = useSelector(
+    (state) => state.status
+  );
+  console.log('saved stories are', savedStories);
 
   return (
     <div className='App'>
-      {!start && <Welcome onClick={() => setStart(true)} />}
-      {start && genreKey === '' && <GenreCardContainer restart={restart} />}
-      {genreKey !== '' && <StoryBuilder restart={restart} />}
+      {page === 'HOME' && (
+        <Welcome onClick={() => dispatch(goToPage('CHOOSE_GENRE'))} />
+      )}
+      {page === 'CHOOSE_GENRE' && <GenreCardContainer />}
+      {page === 'STORY_BUILDER' && <StoryBuilder />}
+      {page === 'HOME' && <SavedStoriesContainer savedStories={savedStories} />}
+      {page === 'STORY_DETAIL' && <SavedStoryDetail story={chosenStory} />}
     </div>
   );
 }

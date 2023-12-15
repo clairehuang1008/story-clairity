@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   generatePrompt,
   generateImagePrompt,
   summarizeStoryPrompt,
 } from '../prompts';
 import { apiCall } from '../apiCalls';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const generateAiPlot = createAsyncThunk(
   'story/generateAiPlot',
   async (arg, { getState, dispatch }) => {
+    console.log('generating a new ai plot...');
     const state = getState();
     const aiPlot = await apiCall(state.story.prompt, 'text');
     dispatch(updateAiPlot(aiPlot)); // Dispatch an action to update state

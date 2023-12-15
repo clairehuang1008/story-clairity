@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
 import { genres } from '../utils/genres';
+import ReturnHomeButton from './ReturnHomeButton';
 
-export default function Header({ restart }) {
+export default function Header() {
   const genreKey = useSelector((state) => state.story.genreKey);
   return (
     <div className='header'>
@@ -9,11 +10,7 @@ export default function Header({ restart }) {
         You are creating a{' '}
         <span className={genreKey}>{genres[genreKey].name}</span> story.
       </h2>
-      <div className='trapdoor' onClick={restart}>
-        <div className='top door'></div>
-        <div className='bottom door'></div>
-        <p className='resetButton'>Back to home page</p>
-      </div>
+      <ReturnHomeButton />
     </div>
   );
 }
