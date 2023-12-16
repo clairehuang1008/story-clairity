@@ -10,6 +10,7 @@ export default function NextCardOptions() {
       <div className='nextCardOptions'>
         {cardOptions.map((option) => (
           <button
+            key={option}
             className={option}
             onClick={() =>
               dispatch(addPlotCard(option === 'twist' ? 'plot twist' : option))

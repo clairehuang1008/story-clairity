@@ -99,7 +99,7 @@ function GeneratingImageButton({ buttonValue, setButtonValue }) {
     >
       {buttonValue}
       {buttonValue === 'Generating...' ? (
-        <div audioContainer>
+        <div className='audioContainer'>
           <Audio
             height='80'
             width='100'
