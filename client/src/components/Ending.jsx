@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { generateTitlePrompt } from '../utils/prompts';
 import { apiCall } from '../utils/apiCalls';
 import { genres } from '../utils/genres';
+import { reset } from '../utils/reducers/storySlice';
+import { fetchSavedStories, goToPage } from '../utils/reducers/pageSlice';
 
 export default function Ending({ buttonValue, setButtonValue }) {
   const aiImageUrl = useSelector((state) => state.story.imageUrl);
@@ -14,6 +16,7 @@ export default function Ending({ buttonValue, setButtonValue }) {
   const [aiTitle, setAiTitle] = useState('');
   const genreKey = useSelector((state) => state.story.genreKey);
   const [userTitle, setUserTitle] = useState('');
+  const dispatch = useDispatch();
 
   async function handleClickSaveButton() {
     console.log('The entire story is', pastPlots);
@@ -45,6 +48,11 @@ export default function Ending({ buttonValue, setButtonValue }) {
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
+      })
+      .then(() => {
+        dispatch(fetchSavedStories());
+        dispatch(reset());
+        dispatch(goToPage('HOME'));
       })
       .catch((err) => console.log('saveStory fetch /save-story: ERROR: ', err));
   }

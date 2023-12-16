@@ -6,10 +6,7 @@ const saveImageToLocal = async (onlineImageUrl, genre) => {
   const arrayBuffer = await imageResponse.arrayBuffer();
   const imageBuffer = Buffer.from(arrayBuffer);
 
-  const targetDirectory = path.join(
-    __dirname,
-    '../client/public/assets/downloadedImages'
-  );
+  const targetDirectory = path.join(__dirname, 'downloadedImages');
   const imageName = `${genre}${Date.now()}.png`.toLowerCase().replace(' ', '');
   const imagePath = path.join(targetDirectory, imageName);
 
@@ -18,7 +15,7 @@ const saveImageToLocal = async (onlineImageUrl, genre) => {
   console.log(`Image saved to ${imagePath}`);
 
   // Return the local URL (modify this according to your server setup)
-  return `/assets/downloadedImages/${imageName}`;
+  return `/downloadedImages/${imageName}`;
 };
 
 module.exports = saveImageToLocal;

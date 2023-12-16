@@ -12,21 +12,34 @@ app.use(cors());
 
 // Serve static files from the React app's build directory
 app.use(express.static(path.join(__dirname, '../client/build')));
+app.use('/downloadedImages', express.static('downloadedImages'));
 
 app.use(express.json());
 app.use(express.urlencoded());
 
 app.get('/home', (req, res) => {
+  console.log('GET /home route hit');
   res.status(200).sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+app.delete('/stories/:id', storyController.deleteStory, (req, res) => {
+  console.log('DELETE /stories/:id route hit');
+  res.status(200).json({ 'story deleted': res.locals.deleted });
+});
+
+app.get('/stories/:id', storyController.getStory, (req, res) => {
+  console.log('GET /stories/:id route hit');
+  res.status(200).json(res.locals.story);
+});
+
 app.get('/stories', storyController.getStories, (req, res) => {
+  console.log('GET /stories route hit');
   res.status(200).json(res.locals.stories);
 });
 
 app.post('/save-story', storyController.saveStory, (req, res) => {
   console.log('POST /save-story route hit');
-  res.status(200).json({ message: 'hello' });
+  res.status(200).json({ newStory: res.locals.newStory });
 });
 
 // The "catchall" handler should be last

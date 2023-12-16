@@ -8,7 +8,7 @@ export default function ReturnHomeButton({ restart }) {
     <div
       className='trapdoor'
       onClick={() => {
-        dispatch(fetchSavedStories);
+        dispatch(fetchSavedStories());
         dispatch(reset());
         dispatch(goToPage('HOME'));
       }}

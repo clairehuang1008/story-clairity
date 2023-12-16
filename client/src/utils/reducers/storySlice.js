@@ -21,14 +21,11 @@ export const generateAiImage = createAsyncThunk(
   async (arg, { getState, dispatch }) => {
     const state = getState();
     const { pastPlots, genreKey } = state.story;
-    console.log('past plots are: ', pastPlots);
     const summarizedStory = await apiCall(
       summarizeStoryPrompt(pastPlots, genreKey),
       'text'
     );
-    console.log('summarized story is: ', summarizedStory);
     const imagePrompt = generateImagePrompt(summarizedStory, genreKey);
-    console.log('prompt to generate image is: ', imagePrompt);
     const aiImageUrl = await apiCall(imagePrompt, 'image');
     dispatch(fetchAiImage(aiImageUrl));
   }
@@ -65,7 +62,7 @@ export const storySlice = createSlice({
         const lastCard = plotCards[plotCards.length - 1];
         const newAddedPlot =
           lastCard.chosen === 'ai' ? lastCard.aiPlot : lastCard.userPlot;
-        state.pastPlots += newAddedPlot;
+        state.pastPlots += '/n' + newAddedPlot;
       }
       state.prompt = generatePrompt(state.genreKey, plotType, state.pastPlots);
       state.plotCards = [...plotCards, newCard];
