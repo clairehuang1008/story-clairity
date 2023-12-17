@@ -10,13 +10,14 @@ import { reset } from '../utils/reducers/storySlice';
 import { fetchSavedStories, goToPage } from '../utils/reducers/pageSlice';
 
 export default function Ending({ buttonValue, setButtonValue }) {
-  const aiImageUrl = useSelector((state) => state.story.imageUrl);
-  const pastPlots = useSelector((state) => state.story.pastPlots);
   const [enterTitle, setEnterTitle] = useState(false);
   const [aiTitle, setAiTitle] = useState('');
-  const genreKey = useSelector((state) => state.story.genreKey);
   const [userTitle, setUserTitle] = useState('');
   const dispatch = useDispatch();
+
+  const { imageUrl, pastPlots, genreKey, plotCards } = useSelector(
+    (state) => state.story
+  );
 
   async function handleClickSaveButton() {
     console.log('The entire story is', pastPlots);
@@ -33,10 +34,17 @@ export default function Ending({ buttonValue, setButtonValue }) {
 
     const body = {
       title: userTitle === '' ? aiTitle : userTitle,
-      plot: pastPlots,
+      plotCards: plotCards.map((card) => {
+        const plot = card.chosen === 'ai' ? card.aiPlot : card.userPlot;
+        return {
+          type: card.type,
+          plot: plot,
+        };
+      }),
       genre: genres[genreKey].name,
-      onlineImageUrl: aiImageUrl,
+      onlineImageUrl: imageUrl,
     };
+    console.log(body);
 
     fetch('/save-story', {
       method: 'POST',
@@ -59,13 +67,13 @@ export default function Ending({ buttonValue, setButtonValue }) {
 
   return (
     <div className='generateImage'>
-      {aiImageUrl === '' && (
+      {imageUrl === '' && (
         <GeneratingImageButton
           buttonValue={buttonValue}
           setButtonValue={setButtonValue}
         />
       )}
-      {aiImageUrl !== '' && <SaveStoryButton onClick={handleClickSaveButton} />}
+      {imageUrl !== '' && <SaveStoryButton onClick={handleClickSaveButton} />}
       {enterTitle && (
         <form onSubmit={saveStory} id='saveStoryForm'>
           <label id='titleLabel' for='title'>
@@ -82,7 +90,7 @@ export default function Ending({ buttonValue, setButtonValue }) {
           <input type='submit' className='save' />
         </form>
       )}
-      {aiImageUrl !== '' && <img src={aiImageUrl} alt='imageForStory' />}
+      {imageUrl !== '' && <img src={imageUrl} alt='imageForStory' />}
     </div>
   );
 }

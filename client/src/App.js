@@ -25,9 +25,9 @@ function App() {
       {page === 'HOME' && (
         <Welcome onClick={() => dispatch(goToPage('CHOOSE_GENRE'))} />
       )}
+      {page === 'HOME' && <SavedStoriesContainer savedStories={savedStories} />}
       {page === 'CHOOSE_GENRE' && <GenreCardContainer />}
       {page === 'STORY_BUILDER' && <StoryBuilder />}
-      {page === 'HOME' && <SavedStoriesContainer savedStories={savedStories} />}
       {page === 'STORY_DETAIL' && <SavedStoryDetail story={chosenStory} />}
     </div>
   );

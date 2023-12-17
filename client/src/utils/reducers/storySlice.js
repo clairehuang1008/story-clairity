@@ -62,7 +62,7 @@ export const storySlice = createSlice({
         const lastCard = plotCards[plotCards.length - 1];
         const newAddedPlot =
           lastCard.chosen === 'ai' ? lastCard.aiPlot : lastCard.userPlot;
-        state.pastPlots += '\n ' + newAddedPlot;
+        state.pastPlots += (state.pastPlots === '' ? '' : '\n ') + newAddedPlot;
         console.log(state.pastPlots);
       }
       state.prompt = generatePrompt(state.genreKey, plotType, state.pastPlots);
@@ -93,7 +93,7 @@ export const storySlice = createSlice({
       const lastCard = plotCards[plotCards.length - 1];
       const newAddedPlot =
         lastCard.chosen === 'ai' ? lastCard.aiPlot : lastCard.userPlot;
-      state.pastPlots += '\n ' + newAddedPlot;
+      state.pastPlots += (state.pastPlots === '' ? '' : '\n ') + newAddedPlot;
     },
   },
 });

@@ -5,7 +5,12 @@ const storySchema = new Schema({
   title: { type: String, required: true, unique: true },
   genre: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  plot: { type: String, required: true, unique: true },
+  plotCards: [
+    {
+      type: { type: String },
+      plot: { type: String },
+    },
+  ],
   imageUrl: { type: String, required: true, unique: true },
 });
 
