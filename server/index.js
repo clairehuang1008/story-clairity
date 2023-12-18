@@ -32,6 +32,11 @@ app.get('/stories/:id', storyController.getStory, (req, res) => {
   res.status(200).json(res.locals.story);
 });
 
+app.put('/stories/:id', storyController.updatePlot, (req, res) => {
+  console.log('PUT /stories/:id route hit');
+  res.status(200).json(res.locals.updatedPlot);
+});
+
 app.get('/stories', storyController.getStories, (req, res) => {
   console.log('GET /stories route hit');
   res.status(200).json(res.locals.stories);

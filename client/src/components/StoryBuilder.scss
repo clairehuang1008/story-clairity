@@ -82,13 +82,13 @@
 
     h3 {
       width: 100%;
-      margin: 0;
+      margin: 0 !important;
       padding: 10px 0;
       font-weight: 900;
       text-shadow: 2px 2px white, -2px -2px white, -2px 2px white,
-        2px -2px white;
+        2px -2px white !important;
       color: #333333;
-      font-size: 1.8rem;
+      font-size: 1.8rem !important;
     }
   }
 
@@ -150,22 +150,6 @@
       gap: 10px;
       justify-content: center;
       align-items: center;
-    }
-
-    textarea {
-      background-color: #a4425f;
-      width: 400px;
-      height: 150px;
-      border: none;
-      resize: none;
-      color: #ffd6de;
-      margin: 10px 10px;
-      line-height: 1.5;
-    }
-
-    textarea::placeholder {
-      color: #ffa6c1;
-      text-align: center;
     }
 
     .buttons {
@@ -438,4 +422,29 @@
     background-color: #218838; /* Slightly darker for hover state */
     color: bisque;
   }
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.chosenContent .flex-row {
+  width: 100%;
+}
+
+textarea {
+  background-color: #a4425f;
+  width: 400px;
+  height: 150px;
+  border: none;
+  resize: none;
+  color: #ffd6de;
+  margin: 10px 10px;
+  line-height: 1.5;
+}
+
+textarea::placeholder {
+  color: #ffa6c1;
+  text-align: center;
 }

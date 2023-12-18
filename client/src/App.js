@@ -8,6 +8,8 @@ import React, { useEffect } from 'react';
 import { fetchSavedStories, goToPage } from './utils/reducers/pageSlice';
 import SavedStoryDetail from './components/savedStories/SavedStoryDetail';
 
+import SavedStoryDetailSample from './components/savedStories/SavedStoriesDetailSample';
+
 function App() {
   const dispatch = useDispatch();
 
@@ -29,6 +31,7 @@ function App() {
       {page === 'CHOOSE_GENRE' && <GenreCardContainer />}
       {page === 'STORY_BUILDER' && <StoryBuilder />}
       {page === 'STORY_DETAIL' && <SavedStoryDetail story={chosenStory} />}
+      {/* <SavedStoryDetailSample /> */}
     </div>
   );
 }

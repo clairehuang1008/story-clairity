@@ -1,12 +1,41 @@
 import './SavedStoryDetail.scss';
 import ReturnHomeButton from '../ReturnHomeButton';
-import { useDispatch } from 'react-redux';
-import { reset } from '../../utils/reducers/storySlice';
-import { fetchSavedStories, goToPage } from '../../utils/reducers/pageSlice';
 import { useState } from 'react';
 
-export default function SavedStoryDetail({ story }) {
-  const { title, genre, plotCards, imageUrl, createdAt } = story;
+const sample = {
+  _id: '657f4b50293816321ac1a8de',
+  title: 'The Sushi Master Disaster',
+  genre: 'comedy',
+  plotCards: [
+    {
+      type: 'beginning',
+      plot: "As the office microwave beeped and released the savory aroma of their coworker's leftover fish, a collective groan filled the air. Janet, known for her excessive love of tuna, strolled in casually, unaware of the chaos she had just caused.",
+      _id: '657f4b50293816321ac1a8df',
+    },
+    {
+      type: 'development',
+      plot: "Janet's coworkers conspired to teach her a lesson. They filled the entire office with fake fish scents, making her lose her appetite for tuna. Janet never brought fish to work again, much to everyone's relief.",
+      _id: '657f4b50293816321ac1a8e0',
+    },
+    {
+      type: 'plot twist',
+      plot: 'But just as Janet settled into her new tuna-free routine, a mysterious figure appeared in the office kitchen. He introduced himself as Tony, the Sushi Master, offering a live sushi-making class for the whole team.',
+      _id: '657f4b50293816321ac1a8e1',
+    },
+    {
+      type: 'ending',
+      plot: "Eager for a new experience, the team agreed to Tony's class. Little did they know, Tony was a terrible teacher. Chaos ensued as everyone attempted to roll sushi, resulting in a sushi maki fight and Janet laughing hysterically.",
+      _id: '657f4b50293816321ac1a8e2',
+    },
+  ],
+  imageUrl: './comedy1702841168067.png',
+  createdAt: '2023-12-17T19:26:08.083Z',
+  __v: 0,
+};
+
+export default function SavedStoryDetail() {
+  const { title, genre, plotCards, imageUrl, createdAt } = sample;
+  console.log(sample);
   const time = new Date(createdAt).toDateString();
   const [edits, setEdits] = useState(Array(plotCards.length).fill(false));
 
@@ -19,9 +48,8 @@ export default function SavedStoryDetail({ story }) {
       <Header genre={genre} title={title} />
 
       <div className='container flex-col'>
-        <CreatedAt time={time} id={story._id} />
+        <CreatedAt time={time} id={sample._id} />
         <DetailCardsContainer
-          storyId={story._id}
           plotCards={plotCards}
           edits={edits}
           setEdits={setEdits}
@@ -45,7 +73,6 @@ function Header({ genre, title }) {
 }
 
 function CreatedAt({ time, id }) {
-  const dispatch = useDispatch();
   return (
     <p className='createdAt'>
       <svg
@@ -70,40 +97,23 @@ function CreatedAt({ time, id }) {
       >
         <path d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5' />
       </svg>
-      <button
-        className='deleteStory'
-        onClick={() => {
-          fetch(`/stories/${id}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-          })
-            .then((res) => res.json())
-            .then(() => {
-              dispatch(fetchSavedStories());
-              dispatch(reset());
-              dispatch(goToPage('HOME'));
-            })
-            .catch((err) => console.log('App: delete character: ERROR: ', err));
-        }}
-      >
-        Delete Story
-      </button>
+      <button className='deleteStory'>Delete Story</button>
     </p>
   );
 }
 
-function DetailCardsContainer({ storyId, plotCards, edits, setEdits }) {
+function DetailCardsContainer({ plotCards, edits, setEdits }) {
+  console.log(edits);
   function toggleEdit(i) {
     setEdits(edits.map((el, j) => (j === i ? !el : el)));
   }
-
   return (
     <div className='plot flex-col plotCardsContainer'>
-      {plotCards.map((card, index) =>
-        edits[index] ? (
+      {plotCards.map((card, index) => {
+        console.log(index, edits[index]);
+        return edits[index] ? (
           <PlotCardEditor
             key={index}
-            storyId={storyId}
             card={card}
             toggleEdit={() => toggleEdit(index)}
           />
@@ -113,8 +123,8 @@ function DetailCardsContainer({ storyId, plotCards, edits, setEdits }) {
             card={card}
             toggleEdit={() => toggleEdit(index)}
           />
-        )
-      )}
+        );
+      })}
     </div>
   );
 }
@@ -148,42 +158,14 @@ function SavedPlotCard({ card, toggleEdit }) {
   );
 }
 
-function PlotCardEditor({ storyId, card, toggleEdit }) {
-  const dispatch = useDispatch();
-  const [userInput, setUserInput] = useState('');
-
-  function updatePlotCard() {
-    if (userInput !== '') {
-      const body = {
-        plotCardId: card._id,
-        updatedPlot: userInput,
-      };
-      fetch(`/stories/${storyId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-        .then((res) => res.json())
-        .then(() => {
-          dispatch(fetchSavedStories());
-          dispatch(reset());
-          dispatch(goToPage('HOME'));
-        })
-        .catch((err) => console.log('App: delete character: ERROR: ', err));
-    }
-  }
-
+function PlotCardEditor({ card, toggleEdit }) {
   return (
     <div className='update flex-row'>
-      <textarea
-        placeholder={card.plot}
-        onChange={(e) => setUserInput(e.target.value)}
-      ></textarea>
+      <textarea placeholder={card.plot}></textarea>
       <button
         className='save'
         onClick={() => {
           toggleEdit();
-          updatePlotCard();
         }}
       >
         SAVE
