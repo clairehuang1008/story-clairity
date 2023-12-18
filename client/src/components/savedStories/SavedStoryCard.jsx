@@ -9,8 +9,16 @@ export default function SavedStoryCard({ story }) {
     <div
       className={(genre === 'science fiction' ? 'sciFi' : genre) + ' container'}
       onClick={() => {
-        dispatch(goToPage('STORY_DETAIL'));
-        dispatch(chooseStory(story));
+        fetch(`/get-story/${story._id}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            dispatch(goToPage('STORY_DETAIL'));
+            dispatch(chooseStory(story));
+          })
+          .catch((err) => console.log('App: getting story: ERROR: ', err));
       }}
     >
       <div className='savedStoryCard flex-col'>

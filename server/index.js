@@ -22,18 +22,18 @@ app.get('/home', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.delete('/stories/:id', storyController.deleteStory, (req, res) => {
-  console.log('DELETE /stories/:id route hit');
+app.delete('/delete-story/:id', storyController.deleteStory, (req, res) => {
+  console.log('DELETE /delete-story/:id route hit');
   res.status(200).json({ 'story deleted': res.locals.deleted });
 });
 
-app.get('/stories/:id', storyController.getStory, (req, res) => {
-  console.log('GET /stories/:id route hit');
+app.get('/get-story/:id', storyController.getStory, (req, res) => {
+  console.log('GET /get-story/:id route hit');
   res.status(200).json(res.locals.story);
 });
 
-app.put('/stories/:id', storyController.updatePlot, (req, res) => {
-  console.log('PUT /stories/:id route hit');
+app.put('/update-story/:id', storyController.updatePlot, (req, res) => {
+  console.log('PUT /update-story/:id route hit');
   res.status(200).json(res.locals.updatedPlot);
 });
 

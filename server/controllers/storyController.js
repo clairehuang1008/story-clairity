@@ -68,11 +68,13 @@ storyController.getStory = (req, res, next) => {
 storyController.updatePlot = (req, res, next) => {
   const storyId = req.params.id;
   const { plotCardId, updatedPlot } = req.body;
-  Story.updateOne(
+  Story.findOneAndUpdate(
     { _id: storyId, 'plotCards._id': plotCardId },
-    { $set: { 'plotCards.$.plot': updatedPlot } }
+    { $set: { 'plotCards.$.plot': updatedPlot } },
+    { new: true }
   )
     .then((data) => (res.locals.updatedPlot = data))
+    .then(() => next())
     .catch((err) =>
       next({
         log: 'Express error handler caught storyController.updatePlot middleware error',

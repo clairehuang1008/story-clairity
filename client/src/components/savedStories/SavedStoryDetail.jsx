@@ -1,11 +1,16 @@
 import './SavedStoryDetail.scss';
 import ReturnHomeButton from '../ReturnHomeButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../utils/reducers/storySlice';
-import { fetchSavedStories, goToPage } from '../../utils/reducers/pageSlice';
+import {
+  chooseStory,
+  fetchSavedStories,
+  goToPage,
+} from '../../utils/reducers/pageSlice';
 import { useState } from 'react';
 
-export default function SavedStoryDetail({ story }) {
+export default function SavedStoryDetail() {
+  const story = useSelector((state) => state.status.chosenStory);
   const { title, genre, plotCards, imageUrl, createdAt } = story;
   const time = new Date(createdAt).toDateString();
   const [edits, setEdits] = useState(Array(plotCards.length).fill(false));
@@ -73,12 +78,13 @@ function CreatedAt({ time, id }) {
       <button
         className='deleteStory'
         onClick={() => {
-          fetch(`/stories/${id}`, {
+          fetch(`/delete-story/${id}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
           })
             .then((res) => res.json())
-            .then(() => {
+            .then((data) => {
+              console.log('deleted story', data);
               dispatch(fetchSavedStories());
               dispatch(reset());
               dispatch(goToPage('HOME'));
@@ -158,18 +164,18 @@ function PlotCardEditor({ storyId, card, toggleEdit }) {
         plotCardId: card._id,
         updatedPlot: userInput,
       };
-      fetch(`/stories/${storyId}`, {
+      fetch(`/update-story/${storyId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
         .then((res) => res.json())
-        .then(() => {
-          dispatch(fetchSavedStories());
-          dispatch(reset());
-          dispatch(goToPage('HOME'));
+        .then((data) => {
+          console.log('story updated');
+          dispatch(goToPage('STORY_DETAIL'));
+          dispatch(chooseStory(data));
         })
-        .catch((err) => console.log('App: delete character: ERROR: ', err));
+        .catch((err) => console.log('App: update story: ERROR: ', err));
     }
   }
 
@@ -182,8 +188,8 @@ function PlotCardEditor({ storyId, card, toggleEdit }) {
       <button
         className='save'
         onClick={() => {
-          toggleEdit();
           updatePlotCard();
+          toggleEdit();
         }}
       >
         SAVE

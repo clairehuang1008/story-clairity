@@ -8,8 +8,6 @@ import React, { useEffect } from 'react';
 import { fetchSavedStories, goToPage } from './utils/reducers/pageSlice';
 import SavedStoryDetail from './components/savedStories/SavedStoryDetail';
 
-import SavedStoryDetailSample from './components/savedStories/SavedStoriesDetailSample';
-
 function App() {
   const dispatch = useDispatch();
 
@@ -17,9 +15,7 @@ function App() {
     dispatch(fetchSavedStories());
   }, [dispatch]);
 
-  const { page, savedStories, chosenStory } = useSelector(
-    (state) => state.status
-  );
+  const { page, savedStories } = useSelector((state) => state.status);
   console.log('saved stories are', savedStories);
 
   return (
@@ -30,8 +26,7 @@ function App() {
       {page === 'HOME' && <SavedStoriesContainer savedStories={savedStories} />}
       {page === 'CHOOSE_GENRE' && <GenreCardContainer />}
       {page === 'STORY_BUILDER' && <StoryBuilder />}
-      {page === 'STORY_DETAIL' && <SavedStoryDetail story={chosenStory} />}
-      {/* <SavedStoryDetailSample /> */}
+      {page === 'STORY_DETAIL' && <SavedStoryDetail />}
     </div>
   );
 }
