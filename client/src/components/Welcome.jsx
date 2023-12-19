@@ -1,5 +1,6 @@
 // import logo from '../assets/logos/logo.png';
 import './Welcome.scss';
+import React from 'react';
 
 export default function Welcome({ onClick }) {
   return (

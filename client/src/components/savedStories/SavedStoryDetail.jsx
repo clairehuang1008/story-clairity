@@ -7,7 +7,7 @@ import {
   fetchSavedStories,
   goToPage,
 } from '../../utils/reducers/pageSlice';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function SavedStoryDetail() {
   const story = useSelector((state) => state.status.chosenStory);

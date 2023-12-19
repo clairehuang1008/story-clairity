@@ -1,3 +1,4 @@
+import React from 'react';
 import { genres } from '../utils/genres.js';
 import GenreCard from './GenreCard.jsx';
 import './GenreCardContainer.scss';

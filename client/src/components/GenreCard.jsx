@@ -1,3 +1,4 @@
+import React from 'react';
 import { genres } from '../utils/genres.js';
 import { useDispatch } from 'react-redux';
 import { setGenre, addPlotCard } from '../utils/reducers/storySlice.js';

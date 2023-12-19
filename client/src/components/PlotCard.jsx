@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import Ending from './Ending';
 import NextCardOptions from './NextCardOptions';

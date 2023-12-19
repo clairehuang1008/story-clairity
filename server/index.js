@@ -11,7 +11,7 @@ mongoose.connect(mongoURI);
 app.use(cors());
 
 // Serve static files from the React app's build directory
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use('/downloadedImages', express.static('downloadedImages'));
 
 app.use(express.json());
@@ -19,7 +19,7 @@ app.use(express.urlencoded());
 
 app.get('/home', (req, res) => {
   console.log('GET /home route hit');
-  res.status(200).sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.status(200).sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 app.delete('/delete-story/:id', storyController.deleteStory, (req, res) => {
@@ -49,7 +49,7 @@ app.post('/save-story', storyController.saveStory, (req, res) => {
 
 // The "catchall" handler should be last
 app.get('*', storyController.getStories, (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 // global error handler
@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

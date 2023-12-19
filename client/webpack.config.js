@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: [
     // entry point of our app
-    './index.js',
+    './src/index.js',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -58,26 +58,17 @@ module.exports = {
       {
         test: /.(css|scss)$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg|ico)$/,
-        use: [
-          {
-            // loads files as base64 encoded data url if image file is less than set limit
-            loader: 'url-loader',
-            options: {
-              // if file is greater than the limit (bytes), file-loader is used as fallback
-              limit: 8192,
-            },
-          },
-        ],
+        type: 'asset/resource',
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './client/index.html',
+      template: './public/index.html',
     }),
   ],
   resolve: {

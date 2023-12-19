@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { genres } from '../utils/genres';
 import ReturnHomeButton from './ReturnHomeButton';

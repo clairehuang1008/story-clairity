@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { reset } from '../utils/reducers/storySlice';
 import { fetchSavedStories, goToPage } from '../utils/reducers/pageSlice';

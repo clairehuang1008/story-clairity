@@ -1,3 +1,4 @@
+import React from 'react';
 import './SavedStoriesContainer.scss';
 import SavedStoryCard from './SavedStoryCard';
 

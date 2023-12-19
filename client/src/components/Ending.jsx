@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveStory, generateAiImage } from '../utils/reducers/storySlice';
 import { Audio } from 'react-loader-spinner';
 import SaveStoryButton from './SaveStoryButton';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { generateTitlePrompt } from '../utils/prompts';
 import { apiCall } from '../utils/apiCalls';
 import { genres } from '../utils/genres';
