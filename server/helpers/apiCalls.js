@@ -1,8 +1,8 @@
-const apiKey = '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';
+const apiKey = process.env.API_KEY;
 const imageEndpoint = 'https://api.openai.com/v1/images/generations';
 const textEndpoint = 'https://api.openai.com/v1/chat/completions';
 
-export function apiCall(prompt, type) {
+function apiCall(prompt, type) {
   const config =
     type === 'text'
       ? {
@@ -45,3 +45,5 @@ export function apiCall(prompt, type) {
       throw error; // Re-throw the error for handling in the calling function
     });
 }
+
+module.exports = apiCall;

@@ -7,6 +7,10 @@ import {
   fetchSavedStories,
   goToPage,
 } from '../../utils/reducers/pageSlice';
+import {
+  requestToDeleteStory,
+  requestToUpdateStory,
+} from '../../utils/fetchRequests';
 import React, { useState } from 'react';
 
 export default function SavedStoryDetail() {
@@ -77,19 +81,11 @@ function CreatedAt({ time, id }) {
       </svg>
       <button
         className='deleteStory'
-        onClick={() => {
-          fetch(`/delete-story/${id}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log('deleted story', data);
-              dispatch(fetchSavedStories());
-              dispatch(reset());
-              dispatch(goToPage('HOME'));
-            })
-            .catch((err) => console.log('App: delete character: ERROR: ', err));
+        onClick={async () => {
+          await requestToDeleteStory(id);
+          dispatch(fetchSavedStories());
+          dispatch(reset());
+          dispatch(goToPage('HOME'));
         }}
       >
         Delete Story
@@ -158,24 +154,15 @@ function PlotCardEditor({ storyId, card, toggleEdit }) {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState('');
 
-  function updatePlotCard() {
+  async function updatePlotCard() {
     if (userInput !== '') {
       const body = {
         plotCardId: card._id,
         updatedPlot: userInput,
       };
-      fetch(`/update-story/${storyId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log('story updated');
-          dispatch(goToPage('STORY_DETAIL'));
-          dispatch(chooseStory(data));
-        })
-        .catch((err) => console.log('App: update story: ERROR: ', err));
+      const updatedStory = await requestToUpdateStory(storyId, body);
+      dispatch(goToPage('STORY_DETAIL'));
+      dispatch(chooseStory(updatedStory));
     }
   }
 

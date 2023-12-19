@@ -1,17 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { requestToGetAllSavedStories } from '../fetchRequests';
 
 export const fetchSavedStories = createAsyncThunk(
   'page/fetchSavedStories',
-  async (arg, { getState, dispatch }) => {
+  async (arg, { dispatch }) => {
     console.log('fetching saved stories...');
-    const response = await fetch('/stories', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-    });
-    const savedStories = await response.json();
-    dispatch(updateSavedStories(savedStories));
+    const story = await requestToGetAllSavedStories();
+    dispatch(updateSavedStories(story));
+    // requestToGetAllSavedStories().then((data) =>
+    //   dispatch(updateSavedStories(data))
+    // );
   }
 );
 

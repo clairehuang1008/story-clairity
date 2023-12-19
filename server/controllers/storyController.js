@@ -1,8 +1,5 @@
-const fs = require('fs/promises');
-const fsCallback = require('fs');
-const path = require('path');
 const Story = require('../models/storyModel');
-const saveImageToLocal = require('../helpers');
+const saveImageToLocal = require('../helpers/saveImageToLocal');
 
 const storyController = {};
 
@@ -23,8 +20,9 @@ storyController.getStories = (req, res, next) => {
 
 storyController.saveStory = async (req, res, next) => {
   const { title, plotCards, genre, onlineImageUrl } = req.body;
-  console.log(req.body);
+  console.log('body is', req.body);
   const imageUrl = await saveImageToLocal(onlineImageUrl, genre);
+  console.log('hllll\n\n\n');
   console.log('imageUrl is', imageUrl);
   Story.create({ title, genre, plotCards, imageUrl })
     .then((data) => (res.locals.newStory = data))

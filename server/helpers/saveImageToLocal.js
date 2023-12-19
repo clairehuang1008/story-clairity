@@ -6,7 +6,7 @@ const saveImageToLocal = async (onlineImageUrl, genre) => {
   const arrayBuffer = await imageResponse.arrayBuffer();
   const imageBuffer = Buffer.from(arrayBuffer);
 
-  const targetDirectory = path.join(__dirname, 'downloadedImages');
+  const targetDirectory = path.join(__dirname, '../downloadedImages');
   const imageName = `${genre}${Date.now()}.png`.toLowerCase().replace(' ', '');
   const imagePath = path.join(targetDirectory, imageName);
 

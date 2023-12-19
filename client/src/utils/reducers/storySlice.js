@@ -4,15 +4,16 @@ import {
   generateImagePrompt,
   summarizeStoryPrompt,
 } from '../prompts';
-import { apiCall } from '../apiCalls';
+import { requestAiImageUrl, requestAiText } from '../fetchRequests';
 
 export const generateAiPlot = createAsyncThunk(
   'story/generateAiPlot',
   async (arg, { getState, dispatch }) => {
     console.log('generating a new ai plot...');
     const state = getState();
-    const aiPlot = await apiCall(state.story.prompt, 'text');
-    dispatch(updateAiPlot(aiPlot)); // Dispatch an action to update state
+    const body = { prompt: state.story.prompt };
+    const aiPlot = await requestAiText(body);
+    dispatch(updateAiPlot(aiPlot));
   }
 );
 
@@ -21,12 +22,11 @@ export const generateAiImage = createAsyncThunk(
   async (arg, { getState, dispatch }) => {
     const state = getState();
     const { pastPlots, genreKey } = state.story;
-    const summarizedStory = await apiCall(
-      summarizeStoryPrompt(pastPlots, genreKey),
-      'text'
-    );
+    const summarizedStory = await requestAiText({
+      prompt: summarizeStoryPrompt(pastPlots, genreKey),
+    });
     const imagePrompt = generateImagePrompt(summarizedStory, genreKey);
-    const aiImageUrl = await apiCall(imagePrompt, 'image');
+    const aiImageUrl = await requestAiImageUrl({ prompt: imagePrompt });
     dispatch(fetchAiImage(aiImageUrl));
   }
 );

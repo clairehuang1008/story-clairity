@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { chooseStory, goToPage } from '../../utils/reducers/pageSlice';
+import { requestToGetStory } from '../../utils/fetchRequests';
 
 export default function SavedStoryCard({ story }) {
   const { title, genre, createdAt } = story;
@@ -9,17 +10,10 @@ export default function SavedStoryCard({ story }) {
   return (
     <div
       className={(genre === 'science fiction' ? 'sciFi' : genre) + ' container'}
-      onClick={() => {
-        fetch(`/get-story/${story._id}`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            dispatch(goToPage('STORY_DETAIL'));
-            dispatch(chooseStory(story));
-          })
-          .catch((err) => console.log('App: getting story: ERROR: ', err));
+      onClick={async () => {
+        const chosenStory = await requestToGetStory(story._id);
+        dispatch(goToPage('STORY_DETAIL'));
+        dispatch(chooseStory(chosenStory));
       }}
     >
       <div className='savedStoryCard flex-col'>

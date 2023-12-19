@@ -4,10 +4,10 @@ import { Audio } from 'react-loader-spinner';
 import SaveStoryButton from './SaveStoryButton';
 import React, { useState } from 'react';
 import { generateTitlePrompt } from '../utils/prompts';
-import { apiCall } from '../utils/apiCalls';
 import { genres } from '../utils/genres';
 import { reset } from '../utils/reducers/storySlice';
 import { fetchSavedStories, goToPage } from '../utils/reducers/pageSlice';
+import { requestAiText, requestToSaveStory } from '../utils/fetchRequests';
 
 export default function Ending({ buttonValue, setButtonValue }) {
   const [enterTitle, setEnterTitle] = useState(false);
@@ -22,14 +22,13 @@ export default function Ending({ buttonValue, setButtonValue }) {
   async function handleClickSaveButton() {
     console.log('The entire story is', pastPlots);
     setEnterTitle(true);
-    const generatedTitle = await apiCall(
-      generateTitlePrompt(pastPlots, genreKey),
-      'text'
-    );
+    const generatedTitle = await requestAiText({
+      prompt: generateTitlePrompt(pastPlots, genreKey),
+    });
     setAiTitle(generatedTitle);
   }
 
-  function saveStory(e) {
+  async function saveStory(e) {
     e.preventDefault();
 
     const body = {
@@ -46,23 +45,11 @@ export default function Ending({ buttonValue, setButtonValue }) {
     };
     console.log(body);
 
-    fetch('/save-story', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-      body: JSON.stringify(body),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .then(() => {
-        dispatch(fetchSavedStories());
-        dispatch(reset());
-        dispatch(goToPage('HOME'));
-      })
-      .catch((err) => console.log('saveStory fetch /save-story: ERROR: ', err));
+    await requestToSaveStory(body);
+
+    dispatch(fetchSavedStories());
+    dispatch(reset());
+    dispatch(goToPage('HOME'));
   }
 
   return (

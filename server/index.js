@@ -1,12 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const storyController = require('./controllers/storyController');
 const cors = require('cors');
+
+const storyController = require('./controllers/storyController');
+
+const mongoURI = 'mongodb://localhost/story-clairity';
 const mongoose = require('mongoose');
+mongoose.connect(mongoURI);
 
 const app = express();
-const mongoURI = 'mongodb://localhost/story-clairity';
-mongoose.connect(mongoURI);
+
+const storyRouter = require('./routes/story');
+const openAiRouter = require('./routes/openAi');
 
 app.use(cors());
 
@@ -17,35 +23,9 @@ app.use('/downloadedImages', express.static('downloadedImages'));
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.get('/home', (req, res) => {
-  console.log('GET /home route hit');
-  res.status(200).sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
+app.use('/story', storyRouter);
 
-app.delete('/delete-story/:id', storyController.deleteStory, (req, res) => {
-  console.log('DELETE /delete-story/:id route hit');
-  res.status(200).json({ 'story deleted': res.locals.deleted });
-});
-
-app.get('/get-story/:id', storyController.getStory, (req, res) => {
-  console.log('GET /get-story/:id route hit');
-  res.status(200).json(res.locals.story);
-});
-
-app.put('/update-story/:id', storyController.updatePlot, (req, res) => {
-  console.log('PUT /update-story/:id route hit');
-  res.status(200).json(res.locals.updatedPlot);
-});
-
-app.get('/stories', storyController.getStories, (req, res) => {
-  console.log('GET /stories route hit');
-  res.status(200).json(res.locals.stories);
-});
-
-app.post('/save-story', storyController.saveStory, (req, res) => {
-  console.log('POST /save-story route hit');
-  res.status(200).json({ newStory: res.locals.newStory });
-});
+app.use('/openAi', openAiRouter);
 
 // The "catchall" handler should be last
 app.get('*', storyController.getStories, (req, res) => {
