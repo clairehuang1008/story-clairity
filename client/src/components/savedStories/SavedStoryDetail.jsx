@@ -6,34 +6,23 @@ import {
   chooseStory,
   fetchSavedStories,
   goToPage,
+  userLogIn,
 } from '../../utils/reducers/pageSlice';
 import {
   requestToDeleteStory,
-  requestToUpdateStory,
   requestToGetUser,
+  requestToUpdateStory,
 } from '../../utils/fetchRequests';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 export default function SavedStoryDetail() {
-  const story = useSelector((state) => state.status.chosenStory);
-  console.log('story is');
-  const { title, genre, plotCards, imageUrl, createdAt, userId } = story;
+  const { story, username } = useSelector((state) => state.status.chosenStory);
+  console.log('story is', story);
+  const { title, genre, plotCards, imageUrl, createdAt } = story;
   const time = new Date(createdAt).toDateString();
   const [edits, setEdits] = useState(Array(plotCards.length).fill(false));
-  const [author, setAuthor] = useState(null);
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await requestToGetUser(userId);
-        console.log('response is', response);
-        setAuthor(response.username);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    }
-    fetchUser();
-  }, [userId]);
+  const loggedUser = useSelector((state) => state.status.logged).user;
+  const canEdit = loggedUser.username === username;
 
   return (
     <div className='storyDetail flex-col'>
@@ -44,12 +33,12 @@ export default function SavedStoryDetail() {
       <Header genre={genre} title={title} />
 
       <div className='container flex-col'>
-        {author && <CreatedAt time={time} id={story._id} author={author} />}
+        <CreatedAt time={time} id={story._id} author={username} />
         <DetailCardsContainer
-          storyId={story._id}
           plotCards={plotCards}
           edits={edits}
           setEdits={setEdits}
+          canEdit={canEdit}
         />
         <img src={imageUrl} alt={title} />
       </div>
@@ -70,6 +59,7 @@ function Header({ genre, title }) {
 }
 
 function CreatedAt({ time, id, author }) {
+  const loggedUser = useSelector((state) => state.status.logged).user;
   const dispatch = useDispatch();
   return (
     <p className='createdAt'>
@@ -113,10 +103,14 @@ function CreatedAt({ time, id, author }) {
       <button
         className='deleteStory'
         onClick={async () => {
-          await requestToDeleteStory(id);
-          dispatch(fetchSavedStories());
-          dispatch(reset());
-          dispatch(goToPage('HOME'));
+          if (author === loggedUser.username) {
+            await requestToDeleteStory(id);
+            const updatedUser = await requestToGetUser(loggedUser._id);
+            dispatch(userLogIn(updatedUser));
+            dispatch(fetchSavedStories());
+            dispatch(reset());
+            dispatch(goToPage('HOME'));
+          }
         }}
       >
         Delete Story
@@ -125,9 +119,9 @@ function CreatedAt({ time, id, author }) {
   );
 }
 
-function DetailCardsContainer({ storyId, plotCards, edits, setEdits }) {
+function DetailCardsContainer({ plotCards, edits, setEdits, canEdit }) {
   function toggleEdit(i) {
-    setEdits(edits.map((el, j) => (j === i ? !el : el)));
+    if (canEdit) setEdits(edits.map((el, j) => (j === i ? !el : el)));
   }
 
   return (
@@ -136,7 +130,6 @@ function DetailCardsContainer({ storyId, plotCards, edits, setEdits }) {
         edits[index] ? (
           <PlotCardEditor
             key={index}
-            storyId={storyId}
             card={card}
             toggleEdit={() => toggleEdit(index)}
           />
@@ -181,9 +174,11 @@ function SavedPlotCard({ card, toggleEdit }) {
   );
 }
 
-function PlotCardEditor({ storyId, card, toggleEdit }) {
+function PlotCardEditor({ card, toggleEdit }) {
+  console.log('Editing', card);
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState('');
+  const { story, username } = useSelector((state) => state.status.chosenStory);
 
   async function updatePlotCard() {
     if (userInput !== '') {
@@ -191,9 +186,9 @@ function PlotCardEditor({ storyId, card, toggleEdit }) {
         plotCardId: card._id,
         updatedPlot: userInput,
       };
-      const updatedStory = await requestToUpdateStory(storyId, body);
+      const updatedStory = await requestToUpdateStory(story._id, body);
       dispatch(goToPage('STORY_DETAIL'));
-      dispatch(chooseStory(updatedStory));
+      dispatch(chooseStory({ story: updatedStory, username: username }));
     }
   }
 

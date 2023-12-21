@@ -4,9 +4,9 @@ import './Welcome.scss';
 import React from 'react';
 import { goToPage } from '../utils/reducers/pageSlice';
 
-export default function Welcome({ onClick }) {
+export default function Welcome() {
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.status.userId);
+  const loggedIn = useSelector((state) => state.status.logged);
   return (
     <div className='welcome'>
       <h1>Story Clairity</h1>

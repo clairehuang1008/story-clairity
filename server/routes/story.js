@@ -4,15 +4,26 @@ const router = express.Router();
 const storyController = require('../controllers/storyController');
 const userController = require('../controllers/userController');
 
-router.delete('/delete/:id', storyController.deleteStory, (req, res) => {
-  console.log('DELETE /story/delete/:id route hit');
-  res.status(200).json({ 'story deleted': res.locals.deleted });
-});
+router.delete(
+  '/delete/:id',
+  storyController.deleteStory,
+  userController.pullStoriesCreated,
+  (req, res) => {
+    console.log('DELETE /story/delete/:id route hit');
+    res.status(200).json({ 'story deleted': res.locals.deleted });
+  }
+);
 
-router.get('/get/:id', storyController.getStory, (req, res) => {
-  console.log('GET /story/get/:id route hit');
-  res.status(200).json(res.locals.story);
-});
+router.get(
+  '/get/:id',
+  storyController.getStory,
+  userController.getUsernameForStory,
+  (req, res) => {
+    console.log('GET /story/get/:id route hit!!!!');
+    console.log(res.locals);
+    res.status(200).json(res.locals);
+  }
+);
 
 router.put('/update/:id', storyController.updatePlot, (req, res) => {
   console.log('PUT /story/update/:id route hit');
@@ -27,7 +38,7 @@ router.get('/all', storyController.getStories, (req, res) => {
 router.post(
   '/save',
   storyController.saveStory,
-  userController.incrementStoryCount,
+  userController.pushStoriesCreated,
   (req, res) => {
     console.log('POST story/save route hit');
     res.status(200).json({ newStory: res.locals.newStory });

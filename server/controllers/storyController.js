@@ -80,4 +80,21 @@ storyController.updatePlot = (req, res, next) => {
     );
 };
 
+storyController.getStoriesForUser = (req, res, next) => {
+  const user = res.locals.user;
+  Story.find({
+    _id: { $in: user.storiesCreated },
+  })
+    .then((storiesCreated) => (res.locals.storiesCreated = storiesCreated))
+    .then(() => next())
+    .catch((err) =>
+      next({
+        log: 'Express error handler caught storyController.getStoriesForUser middleware error',
+        message: {
+          err: 'An error occurred when getting stories created for user',
+        },
+      })
+    );
+};
+
 module.exports = storyController;

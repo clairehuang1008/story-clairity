@@ -6,7 +6,7 @@ import { goToPage } from '../utils/reducers/pageSlice.js';
 
 export default function GenreCard({ genreKey }) {
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.status.userId);
+  const loggedIn = useSelector((state) => state.status.logged);
   return (
     <button
       className={`genre-card ${genreKey}`}

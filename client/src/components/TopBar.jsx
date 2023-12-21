@@ -4,12 +4,12 @@ import './TopBar.scss';
 import { goToPage, userLogOut } from '../utils/reducers/pageSlice';
 
 export default function TopBar() {
-  const username = useSelector((state) => state.status.username);
+  const logged = useSelector((state) => state.status.logged);
   // const user = { username: 'claire' };
   return (
     <div className='topbar'>
-      {!username && <Buttons />}
-      {username && <User username={username} />}
+      {!logged && <Buttons />}
+      {logged && <User username={logged.user.username} />}
     </div>
   );
 }

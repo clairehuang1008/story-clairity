@@ -42,11 +42,9 @@ export default function SignUpBox() {
                 setMessage(res.err);
               } else {
                 setMessage('Sign up successfully.');
-                dispatch(
-                  userLogIn({ username: res.username, userId: res._id })
-                );
+                dispatch(userLogIn(res));
                 console.log(res);
-                setTimeout(() => dispatch(goToPage('HOME')), 1000);
+                dispatch(goToPage('HOME'));
               }
             } catch (error) {
               console.log(error);

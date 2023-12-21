@@ -17,8 +17,7 @@ const initialState = {
   page: 'HOME',
   savedStories: [],
   chosenStory: null,
-  username: null,
-  userId: null,
+  logged: null,
 };
 
 export const pageSlice = createSlice({
@@ -35,12 +34,16 @@ export const pageSlice = createSlice({
       state.chosenStory = action.payload;
     },
     userLogIn: (state, action) => {
-      state.username = action.payload.username;
-      state.userId = action.payload.userId;
+      state.logged = action.payload;
     },
     userLogOut: (state, action) => {
-      state.username = null;
-      state.userId = null;
+      state.logged = null;
+    },
+    deleteStory: (state, action) => {
+      const storyId = action.payload;
+      state.savedStories = state.savedStories.filter(
+        (story) => story._id !== storyId
+      );
     },
   },
 });

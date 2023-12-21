@@ -42,10 +42,8 @@ export default function LogInBox() {
               } else {
                 setMessage('Login successfully.');
                 console.log(res);
-                dispatch(
-                  userLogIn({ username: res.username, userId: res._id })
-                );
-                setTimeout(() => dispatch(goToPage('HOME')), 1000);
+                dispatch(userLogIn(res));
+                dispatch(goToPage('HOME'));
               }
             } catch (error) {
               console.log(error);

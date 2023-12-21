@@ -21,15 +21,58 @@ userController.getAllUsers = (req, res, next) => {
     });
 };
 
-userController.incrementStoryCount = (req, res, next) => {
-  const id = res.locals.newStory.userId;
-  User.findByIdAndUpdate(id, { $inc: { storyCreated: 1 } }, { new: true })
+userController.pushStoriesCreated = (req, res, next) => {
+  const userId = res.locals.newStory.userId;
+  const storyId = res.locals.newStory._id;
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $push: { storiesCreated: storyId },
+    },
+    { new: true }
+  )
     .then(() => next())
     .catch((err) =>
       next({
-        log: 'Express error handler caught userController.incrementStoryCount middleware error',
+        log: 'Express error handler caught userController.pushStoriesCreated middleware error',
         message: {
-          err: 'An error occurred when updating user created stories count',
+          err: 'An error occurred when populating storiesCreated array for user',
+        },
+      })
+    );
+};
+
+userController.pullStoriesCreated = (req, res, next) => {
+  const userId = res.locals.deleted.userId;
+  const storyId = res.locals.deleted._id;
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $pull: { storiesCreated: storyId },
+    },
+    { new: true }
+  )
+    .then(() => next())
+    .catch((err) =>
+      next({
+        log: 'Express error handler caught userController.pullStoriesCreated middleware error',
+        message: {
+          err: 'An error occurred when removing storyId in the storiesCreated array for user',
+        },
+      })
+    );
+};
+
+userController.getUsernameForStory = (req, res, next) => {
+  const id = res.locals.story.userId;
+  User.findById(id)
+    .then((user) => (res.locals.username = user.username))
+    .then(() => next())
+    .catch((err) =>
+      next({
+        log: 'Express error handler caught userController.getUsernameForStory middleware error',
+        message: {
+          err: 'An error occurred when getting user information for a story',
         },
       })
     );
@@ -76,7 +119,7 @@ userController.logIn = async (req, res, next) => {
     } else if (user.password !== password) {
       res.locals.logInErr = 'Password incorrect.';
     } else {
-      res.locals.loggedUser = await User.findOneAndUpdate(
+      res.locals.user = await User.findOneAndUpdate(
         { _id: user._id },
         { lastLogIn: Date.now() },
         { new: false }

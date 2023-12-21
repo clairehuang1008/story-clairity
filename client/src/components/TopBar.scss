@@ -111,11 +111,20 @@
 .userDetailContainer {
   height: 100vh;
   margin-right: 90px;
-  color: #a4425f;
+  color: #4a242f;
   text-shadow: 0 0 5px white;
 
+  .story {
+    cursor: pointer;
+
+    &:hover {
+      text-shadow: 0 0 10px white;
+      font-weight: bold;
+    }
+  }
+
   .trapdoor {
-    margin-top: -50px;
+    margin-top: -200px;
     margin-left: -140px;
   }
 
@@ -127,5 +136,9 @@
     .flex-row {
       gap: 10px;
     }
+  }
+
+  .flex-row {
+    align-items: baseline;
   }
 }
