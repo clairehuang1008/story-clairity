@@ -24,8 +24,9 @@ router.post(
   (req, res) => {
     console.log('POST /user/login route hit');
     console.log(res.locals.logInErr);
+    let user;
     if (res.locals.user) {
-      const user = { ...res.locals.user._doc };
+      user = { ...res.locals.user._doc };
       user.storiesCreated = res.locals.storiesCreated;
     }
     const response = res.locals.logInErr ? { err: res.locals.logInErr } : user;

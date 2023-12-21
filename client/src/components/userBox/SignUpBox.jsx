@@ -44,7 +44,7 @@ export default function SignUpBox() {
                 setMessage('Sign up successfully.');
                 dispatch(userLogIn(res));
                 console.log(res);
-                dispatch(goToPage('HOME'));
+                setTimeout(() => dispatch(goToPage('HOME')), 1000);
               }
             } catch (error) {
               console.log(error);

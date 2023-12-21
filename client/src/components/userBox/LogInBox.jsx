@@ -43,7 +43,7 @@ export default function LogInBox() {
                 setMessage('Login successfully.');
                 console.log(res);
                 dispatch(userLogIn(res));
-                dispatch(goToPage('HOME'));
+                setTimeout(() => dispatch(goToPage('HOME')), 1000);
               }
             } catch (error) {
               console.log(error);
