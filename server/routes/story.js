@@ -20,8 +20,10 @@ router.get(
   userController.getUsernameForStory,
   (req, res) => {
     console.log('GET /story/get/:id route hit!!!!');
-    console.log(res.locals);
-    res.status(200).json(res.locals);
+    const story = { ...res.locals.story._doc };
+    story.username = res.locals.username;
+    console.log(res.locals.story);
+    res.status(200).json(story);
   }
 );
 

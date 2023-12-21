@@ -18,7 +18,7 @@ export default function Ending({ buttonValue, setButtonValue }) {
   const { imageUrl, pastPlots, genreKey, plotCards } = useSelector(
     (state) => state.story
   );
-  const userId = useSelector((state) => state.status.logged).user._id;
+  const userId = useSelector((state) => state.status.loggedUser)._id;
   console.log(userId);
 
   async function handleClickSaveButton() {

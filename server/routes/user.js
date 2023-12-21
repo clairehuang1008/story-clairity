@@ -13,7 +13,7 @@ router.post('/signup', userController.signUpNewUser, (req, res) => {
   console.log('POST /user/signup route hit');
   const response = res.locals.signUpErr
     ? { err: res.locals.signUpErr }
-    : { user: res.locals.newUser, storiesCreated: [] };
+    : res.locals.user;
   res.status(200).json(response);
 });
 
@@ -23,9 +23,12 @@ router.post(
   storyController.getStoriesForUser,
   (req, res) => {
     console.log('POST /user/login route hit');
-    const response = res.locals.logInErr
-      ? { err: res.locals.logInErr }
-      : res.locals;
+    console.log(res.locals.logInErr);
+    if (res.locals.user) {
+      const user = { ...res.locals.user._doc };
+      user.storiesCreated = res.locals.storiesCreated;
+    }
+    const response = res.locals.logInErr ? { err: res.locals.logInErr } : user;
     res.status(200).json(response);
   }
 );
@@ -36,7 +39,9 @@ router.get(
   storyController.getStoriesForUser,
   (req, res) => {
     console.log('GET /user/:id route hit');
-    res.status(200).json(res.locals);
+    const user = { ...res.locals.user._doc };
+    user.storiesCreated = res.locals.storiesCreated;
+    res.status(200).json(user);
   }
 );
 

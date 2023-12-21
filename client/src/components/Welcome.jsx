@@ -6,7 +6,7 @@ import { goToPage } from '../utils/reducers/pageSlice';
 
 export default function Welcome() {
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.status.logged);
+  const loggedIn = useSelector((state) => state.status.loggedUser);
   return (
     <div className='welcome'>
       <h1>Story Clairity</h1>

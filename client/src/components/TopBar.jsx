@@ -1,15 +1,21 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './TopBar.scss';
-import { goToPage, userLogOut } from '../utils/reducers/pageSlice';
+import {
+  goToPage,
+  setUserDetailId,
+  userLogOut,
+} from '../utils/reducers/pageSlice';
 
 export default function TopBar() {
-  const logged = useSelector((state) => state.status.logged);
+  const loggedUser = useSelector((state) => state.status.loggedUser);
   // const user = { username: 'claire' };
   return (
     <div className='topbar'>
-      {!logged && <Buttons />}
-      {logged && <User username={logged.user.username} />}
+      {!loggedUser && <Buttons />}
+      {loggedUser && (
+        <User username={loggedUser.username} id={loggedUser._id} />
+      )}
     </div>
   );
 }
@@ -28,14 +34,17 @@ function Buttons() {
   );
 }
 
-function User({ username }) {
+function User({ username, id }) {
   const dispatch = useDispatch();
   return (
     <div className='buttons flex-row'>
       <button className='login'>
         <div
           className='flex-row user'
-          onClick={() => dispatch(goToPage('USER_DETAIL'))}
+          onClick={() => {
+            dispatch(setUserDetailId(id));
+            dispatch(goToPage('USER_DETAIL'));
+          }}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

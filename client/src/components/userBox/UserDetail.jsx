@@ -1,16 +1,23 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import ReturnHomeButton from '../ReturnHomeButton';
 import { chooseStory, goToPage } from '../../utils/reducers/pageSlice';
+import { requestToGetUser } from '../../utils/fetchRequests';
 
-export default function UserDetail() {
-  const { user, storiesCreated } = useSelector((state) => state.status.logged);
+export default function UserDetail({ userId }) {
+  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
-  console.log(user, storiesCreated);
+
+  useEffect(() => {
+    async function fetchUser(id) {
+      const fetchedUser = await requestToGetUser(userId);
+      setUser(fetchedUser);
+    }
+    fetchUser(userId);
+  }, [userId]);
 
   return (
-    user &&
-    storiesCreated && (
+    user && (
       <div className='userDetailContainer flex-col'>
         <ReturnHomeButton />
         <div className='flex-col'>
@@ -20,7 +27,7 @@ export default function UserDetail() {
           <div className='flex-row'>
             <strong>Stories Created: </strong>
             <div className='flex-col'>
-              {storiesCreated.map((story) => (
+              {user.storiesCreated.map((story) => (
                 <p
                   key={story._id}
                   className='story'
@@ -28,7 +35,7 @@ export default function UserDetail() {
                     console.log(story);
                     dispatch(goToPage('STORY_DETAIL'));
                     dispatch(
-                      chooseStory({ story: story, username: user.username })
+                      chooseStory({ ...story, username: user.username })
                     );
                   }}
                 >

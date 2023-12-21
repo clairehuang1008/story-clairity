@@ -7,9 +7,6 @@ export const fetchSavedStories = createAsyncThunk(
     console.log('fetching saved stories...');
     const story = await requestToGetAllSavedStories();
     dispatch(updateSavedStories(story));
-    // requestToGetAllSavedStories().then((data) =>
-    //   dispatch(updateSavedStories(data))
-    // );
   }
 );
 
@@ -17,7 +14,8 @@ const initialState = {
   page: 'HOME',
   savedStories: [],
   chosenStory: null,
-  logged: null,
+  loggedUser: null,
+  userDetailId: null,
 };
 
 export const pageSlice = createSlice({
@@ -34,16 +32,13 @@ export const pageSlice = createSlice({
       state.chosenStory = action.payload;
     },
     userLogIn: (state, action) => {
-      state.logged = action.payload;
+      state.loggedUser = action.payload;
     },
     userLogOut: (state, action) => {
-      state.logged = null;
+      state.loggedUser = null;
     },
-    deleteStory: (state, action) => {
-      const storyId = action.payload;
-      state.savedStories = state.savedStories.filter(
-        (story) => story._id !== storyId
-      );
+    setUserDetailId: (state, action) => {
+      state.userDetailId = action.payload;
     },
   },
 });
@@ -54,6 +49,7 @@ export const {
   chooseStory,
   userLogIn,
   userLogOut,
+  setUserDetailId,
 } = pageSlice.actions;
 
 export default pageSlice.reducer;

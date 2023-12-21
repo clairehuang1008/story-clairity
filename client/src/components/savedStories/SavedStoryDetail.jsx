@@ -6,6 +6,7 @@ import {
   chooseStory,
   fetchSavedStories,
   goToPage,
+  setUserDetailId,
   userLogIn,
 } from '../../utils/reducers/pageSlice';
 import {
@@ -16,13 +17,14 @@ import {
 import React, { useState } from 'react';
 
 export default function SavedStoryDetail() {
-  const { story, username } = useSelector((state) => state.status.chosenStory);
+  const story = useSelector((state) => state.status.chosenStory);
   console.log('story is', story);
-  const { title, genre, plotCards, imageUrl, createdAt } = story;
+  const { title, genre, plotCards, imageUrl, createdAt, username, userId } =
+    story;
   const time = new Date(createdAt).toDateString();
   const [edits, setEdits] = useState(Array(plotCards.length).fill(false));
-  const loggedUser = useSelector((state) => state.status.logged).user;
-  const canEdit = loggedUser.username === username;
+  const loggedUser = useSelector((state) => state.status.loggedUser);
+  const canEdit = loggedUser.username === story.username;
 
   return (
     <div className='storyDetail flex-col'>
@@ -33,7 +35,12 @@ export default function SavedStoryDetail() {
       <Header genre={genre} title={title} />
 
       <div className='container flex-col'>
-        <CreatedAt time={time} id={story._id} author={username} />
+        <CreatedAt
+          time={time}
+          id={story._id}
+          author={username}
+          authorId={userId}
+        />
         <DetailCardsContainer
           plotCards={plotCards}
           edits={edits}
@@ -58,8 +65,8 @@ function Header({ genre, title }) {
   );
 }
 
-function CreatedAt({ time, id, author }) {
-  const loggedUser = useSelector((state) => state.status.logged).user;
+function CreatedAt({ time, id, author, authorId }) {
+  const loggedUser = useSelector((state) => state.status.logged);
   const dispatch = useDispatch();
   return (
     <p className='createdAt'>
@@ -89,7 +96,15 @@ function CreatedAt({ time, id, author }) {
           d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1'
         />
       </svg>
-      <button className='deleteStory author'>{author}</button>
+      <button
+        className='deleteStory author'
+        onClick={() => {
+          dispatch(setUserDetailId(authorId));
+          dispatch(goToPage('USER_DETAIL'));
+        }}
+      >
+        {author}
+      </button>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='19'
@@ -178,7 +193,7 @@ function PlotCardEditor({ card, toggleEdit }) {
   console.log('Editing', card);
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState('');
-  const { story, username } = useSelector((state) => state.status.chosenStory);
+  const story = useSelector((state) => state.status.chosenStory);
 
   async function updatePlotCard() {
     if (userInput !== '') {
@@ -188,7 +203,7 @@ function PlotCardEditor({ card, toggleEdit }) {
       };
       const updatedStory = await requestToUpdateStory(story._id, body);
       dispatch(goToPage('STORY_DETAIL'));
-      dispatch(chooseStory({ story: updatedStory, username: username }));
+      dispatch(chooseStory(updatedStory));
     }
   }
 

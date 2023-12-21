@@ -19,7 +19,9 @@ function App() {
     dispatch(fetchSavedStories());
   }, [dispatch]);
 
-  const { page, savedStories } = useSelector((state) => state.status);
+  const { page, savedStories, userDetailId } = useSelector(
+    (state) => state.status
+  );
   console.log('saved stories are', savedStories);
 
   return (
@@ -32,7 +34,7 @@ function App() {
       {page === 'STORY_DETAIL' && <SavedStoryDetail />}
       {page === 'LOG_IN' && <LogInBox />}
       {page === 'SIGN_UP' && <SignUpBox />}
-      {page === 'USER_DETAIL' && <UserDetail />}
+      {page === 'USER_DETAIL' && <UserDetail userId={userDetailId} />}
     </div>
   );
 }

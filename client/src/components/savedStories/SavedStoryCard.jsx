@@ -6,7 +6,7 @@ import { requestToGetStory } from '../../utils/fetchRequests';
 export default function SavedStoryCard({ story }) {
   const { title, genre, createdAt } = story;
   const time = new Date(createdAt).toDateString();
-  const loggedIn = useSelector((state) => state.status.logged);
+  const loggedIn = useSelector((state) => state.status.loggedUser);
   const dispatch = useDispatch();
   return (
     <div

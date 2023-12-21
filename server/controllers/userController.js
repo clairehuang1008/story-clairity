@@ -112,7 +112,9 @@ userController.signUpNewUser = async (req, res, next) => {
 
 userController.logIn = async (req, res, next) => {
   const { username, password } = req.body;
+  console.log(req.body);
   const user = await User.findOne({ username });
+  console.log(user);
   try {
     if (!user) {
       res.locals.logInErr = 'Username not found.';
