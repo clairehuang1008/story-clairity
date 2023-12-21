@@ -13,6 +13,7 @@ const app = express();
 
 const storyRouter = require('./routes/story');
 const openAiRouter = require('./routes/openAi');
+const userRouter = require('./routes/user');
 
 app.use(cors());
 
@@ -24,8 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.use('/story', storyRouter);
-
 app.use('/openAi', openAiRouter);
+app.use('/user', userRouter);
 
 // The "catchall" handler should be last
 app.get('*', storyController.getStories, (req, res) => {

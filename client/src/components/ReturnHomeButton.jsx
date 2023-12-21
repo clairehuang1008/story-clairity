@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { reset } from '../utils/reducers/storySlice';
 import { fetchSavedStories, goToPage } from '../utils/reducers/pageSlice';
 
-export default function ReturnHomeButton({ restart }) {
+export default function ReturnHomeButton() {
   const dispatch = useDispatch();
   return (
     <div

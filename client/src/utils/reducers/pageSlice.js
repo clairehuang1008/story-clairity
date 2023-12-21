@@ -17,6 +17,8 @@ const initialState = {
   page: 'HOME',
   savedStories: [],
   chosenStory: null,
+  username: null,
+  userId: null,
 };
 
 export const pageSlice = createSlice({
@@ -32,9 +34,23 @@ export const pageSlice = createSlice({
     chooseStory: (state, action) => {
       state.chosenStory = action.payload;
     },
+    userLogIn: (state, action) => {
+      state.username = action.payload.username;
+      state.userId = action.payload.userId;
+    },
+    userLogOut: (state, action) => {
+      state.username = null;
+      state.userId = null;
+    },
   },
 });
 
-export const { goToPage, updateSavedStories, chooseStory } = pageSlice.actions;
+export const {
+  goToPage,
+  updateSavedStories,
+  chooseStory,
+  userLogIn,
+  userLogOut,
+} = pageSlice.actions;
 
 export default pageSlice.reducer;

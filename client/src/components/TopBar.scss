@@ -1,0 +1,131 @@
+.topbar {
+  .buttons {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    gap: 10px;
+
+    button {
+      border: 0;
+      cursor: pointer;
+      padding: 10px 30px;
+      font-size: 1rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      .user {
+        gap: 10px;
+      }
+    }
+
+    .login:hover {
+      background-color: rgb(55, 103, 192);
+      color: white;
+      text-shadow: 0 0 10px bisque;
+      box-shadow: 3px 3px 8px bisque;
+    }
+
+    .signup {
+      background-color: rgb(55, 103, 192);
+      color: white;
+    }
+
+    .signup:hover {
+      background-color: rgb(50, 94, 176);
+      text-shadow: 0 0 10px bisque;
+      box-shadow: 3px 3px 8px bisque;
+    }
+  }
+}
+
+.userBox {
+  height: 100vh;
+  gap: 20px;
+
+  .trapdoor {
+    margin-top: -50px;
+    margin-left: -150px;
+  }
+
+  button {
+    border: 0;
+    cursor: pointer;
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+
+  .login:hover {
+    background-color: rgb(55, 103, 192);
+    color: white;
+    text-shadow: 0 0 10px bisque;
+    box-shadow: 3px 3px 8px bisque;
+  }
+
+  .signup {
+    background-color: rgb(55, 103, 192);
+    color: white;
+  }
+
+  .signup:hover {
+    background-color: rgb(50, 94, 176);
+    text-shadow: 0 0 10px bisque;
+    box-shadow: 3px 3px 8px bisque;
+  }
+}
+
+.userBox {
+  padding-right: 100px;
+  font-size: 1.2rem;
+
+  .flex-col {
+    align-items: start;
+  }
+
+  label {
+    padding: 10px;
+    color: white;
+    font-weight: 900;
+    text-shadow: 1px 1px 10px blue, -1px 1px 10px red;
+  }
+
+  input {
+    background-color: #a4425f;
+    padding: 10px;
+    width: 200px;
+    color: #f9c6d5;
+    border-radius: 10px;
+  }
+
+  .error {
+    position: absolute;
+    bottom: 300px;
+    color: white;
+    font-weight: 900;
+    text-shadow: 1px 1px 10px blue, -1px 1px 10px red;
+  }
+}
+
+.userDetailContainer {
+  height: 100vh;
+  margin-right: 90px;
+  color: #a4425f;
+  text-shadow: 0 0 5px white;
+
+  .trapdoor {
+    margin-top: -50px;
+    margin-left: -140px;
+  }
+
+  .flex-col {
+    align-items: start;
+    background-color: #f9c6d57a;
+    padding: 20px;
+    border-radius: 20px;
+    .flex-row {
+      gap: 10px;
+    }
+  }
+}

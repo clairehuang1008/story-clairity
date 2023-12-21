@@ -6,9 +6,9 @@ apiCallController.getText = async (req, res, next) => {
   try {
     const { prompt } = req.body;
     res.locals.aiText = await apiCall(prompt, 'text');
-    next();
+    return next();
   } catch (error) {
-    next({
+    return next({
       log: 'Express error handler caught apiCallController.getText middleware error',
       message: { err: 'An error occurred when fetching a text from openAi' },
     });
@@ -19,9 +19,9 @@ apiCallController.getImage = async (req, res, next) => {
   try {
     const { prompt } = req.body;
     res.locals.aiImageUrl = await apiCall(prompt, 'image');
-    next();
+    return next();
   } catch (error) {
-    next({
+    return next({
       log: 'Express error handler caught apiCallController.getImage middleware error',
       message: { err: 'An error occurred when fetching an image from openAi' },
     });

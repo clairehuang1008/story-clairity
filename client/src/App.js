@@ -5,8 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import StoryBuilder from './components/StoryBuilder.jsx';
 import SavedStoriesContainer from './components/savedStories/SavedStoriesContainer';
 import React, { useEffect } from 'react';
-import { fetchSavedStories, goToPage } from './utils/reducers/pageSlice';
+import { fetchSavedStories } from './utils/reducers/pageSlice';
 import SavedStoryDetail from './components/savedStories/SavedStoryDetail';
+import TopBar from './components/TopBar';
+import LogInBox from './components/userBox/LogInBox';
+import SignUpBox from './components/userBox/SignUpBox';
+import UserDetail from './components/userBox/UserDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,13 +24,15 @@ function App() {
 
   return (
     <div className='App'>
-      {page === 'HOME' && (
-        <Welcome onClick={() => dispatch(goToPage('CHOOSE_GENRE'))} />
-      )}
+      {page !== 'LOG_IN' && page !== 'SIGN_UP' && <TopBar />}
+      {page === 'HOME' && <Welcome />}
       {page === 'HOME' && <SavedStoriesContainer savedStories={savedStories} />}
       {page === 'CHOOSE_GENRE' && <GenreCardContainer />}
       {page === 'STORY_BUILDER' && <StoryBuilder />}
       {page === 'STORY_DETAIL' && <SavedStoryDetail />}
+      {page === 'LOG_IN' && <LogInBox />}
+      {page === 'SIGN_UP' && <SignUpBox />}
+      {page === 'USER_DETAIL' && <UserDetail />}
     </div>
   );
 }

@@ -19,12 +19,11 @@ storyController.getStories = (req, res, next) => {
 };
 
 storyController.saveStory = async (req, res, next) => {
-  const { title, plotCards, genre, onlineImageUrl } = req.body;
+  const { title, plotCards, genre, onlineImageUrl, userId } = req.body;
   console.log('body is', req.body);
   const imageUrl = await saveImageToLocal(onlineImageUrl, genre);
-  console.log('hllll\n\n\n');
   console.log('imageUrl is', imageUrl);
-  Story.create({ title, genre, plotCards, imageUrl })
+  Story.create({ title, genre, plotCards, imageUrl, userId })
     .then((data) => (res.locals.newStory = data))
     .then(() => next())
     .catch((err) =>

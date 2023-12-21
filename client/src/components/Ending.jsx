@@ -18,6 +18,7 @@ export default function Ending({ buttonValue, setButtonValue }) {
   const { imageUrl, pastPlots, genreKey, plotCards } = useSelector(
     (state) => state.story
   );
+  const userId = useSelector((state) => state.status.userId);
 
   async function handleClickSaveButton() {
     console.log('The entire story is', pastPlots);
@@ -28,8 +29,13 @@ export default function Ending({ buttonValue, setButtonValue }) {
     setAiTitle(generatedTitle);
   }
 
-  async function saveStory(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (!userId) {
+      dispatch(fetchSavedStories());
+      dispatch(reset());
+      dispatch(goToPage('LOG_IN'));
+    }
 
     const body = {
       title: userTitle === '' ? aiTitle : userTitle,
@@ -42,6 +48,7 @@ export default function Ending({ buttonValue, setButtonValue }) {
       }),
       genre: genres[genreKey].name,
       onlineImageUrl: imageUrl,
+      userId: userId,
     };
     console.log(body);
 
@@ -62,7 +69,7 @@ export default function Ending({ buttonValue, setButtonValue }) {
       )}
       {imageUrl !== '' && <SaveStoryButton onClick={handleClickSaveButton} />}
       {enterTitle && (
-        <form onSubmit={saveStory} id='saveStoryForm'>
+        <form onSubmit={handleSubmit} id='saveStoryForm'>
           <label id='titleLabel' for='title'>
             Title:{' '}
           </label>
