@@ -7,7 +7,7 @@ function apiCall(prompt, type) {
     type === 'text'
       ? {
           messages: [{ role: 'system', content: prompt }],
-          model: 'gpt-4',
+          model: 'gpt-3.5-turbo',
         }
       : {
           model: 'dall-e-3',

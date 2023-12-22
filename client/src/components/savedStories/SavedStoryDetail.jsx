@@ -73,7 +73,7 @@ function Header({ genre, title }) {
 }
 
 function CreatedAt({ time, id, author, authorId, canEdit }) {
-  const loggedUser = useSelector((state) => state.status.logged);
+  const loggedUser = useSelector((state) => state.status.loggedUser);
   const dispatch = useDispatch();
   return (
     <p className='createdAt'>
