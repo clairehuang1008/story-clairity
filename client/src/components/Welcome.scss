@@ -26,6 +26,7 @@
       text-shadow: 3px 3px 8px purple;
       font-size: 1.5em;
       font-family: 'Mystery Quest', sans-serif;
+      cursor: pointer;
     }
   }
 
@@ -73,5 +74,27 @@
       opacity: 1;
       right: 0;
     }
+  }
+}
+
+.socials {
+  position: absolute;
+  left: 450px;
+  top: 300px;
+  background-color: #fff9c0cc;
+  padding: 10px;
+  border-radius: 20px;
+  color: #a4425f;
+  align-items: start !important;
+  font-family: 'Courier';
+  gap: 5px;
+  text-shadow: 1px 0px white;
+
+  .flex-row {
+    gap: 10px;
+  }
+
+  p {
+    margin: 0;
   }
 }

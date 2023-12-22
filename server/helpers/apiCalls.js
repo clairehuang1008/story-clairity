@@ -7,7 +7,7 @@ function apiCall(prompt, type) {
     type === 'text'
       ? {
           messages: [{ role: 'system', content: prompt }],
-          model: 'gpt-3.5-turbo',
+          model: 'gpt-4',
         }
       : {
           model: 'dall-e-3',
@@ -20,7 +20,7 @@ function apiCall(prompt, type) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`, // Replace with your actual API key
+      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify(config),
     mode: 'cors',
@@ -31,18 +31,18 @@ function apiCall(prompt, type) {
     .then((data) => {
       if (type === 'text') {
         if (data.choices && data.choices.length > 0) {
-          return data.choices[0].message.content; // Extracting the content for text
+          return data.choices[0].message.content;
         }
       } else if (type === 'image') {
         if (data && data.data && data.data.length > 0) {
-          return data.data[0].url; // Extracting the image URL
+          return data.data[0].url;
         }
       }
       throw new Error('No content received from OpenAI');
     })
     .catch((error) => {
-      console.error('Error in generateNextPlot:', error);
-      throw error; // Re-throw the error for handling in the calling function
+      console.error('Error in fetching from open AI:', error);
+      throw error;
     });
 }
 
